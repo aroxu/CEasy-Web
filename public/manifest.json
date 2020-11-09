@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "CEasy",
+  "name": "재난문자 뷰어",
   "icons": [
     {
       "src": "favicon.ico",
