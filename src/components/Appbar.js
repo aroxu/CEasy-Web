@@ -14,7 +14,6 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
-import Alert from '@material-ui/lab/Alert'
 
 import Home from '../pages/Home'
 import API from '../pages/API'
@@ -31,6 +30,7 @@ import {
 } from '@material-ui/icons'
 import { Divider, Snackbar, Tooltip } from '@material-ui/core'
 import PageNotFound from '../pages/PageNotFound'
+import Alert from './Alert'
 
 const history = createBrowserHistory()
 
@@ -206,12 +206,12 @@ const HeaderAppBarInteraction = ({ classes, variant }) => {
   useEffect(() => {
     if (window.location.pathname === '/') {
       setTitle('홈')
-    }
-    if (window.location.pathname === '/api') {
+    } else if (window.location.pathname === '/api') {
       setTitle('API 문서')
-    }
-    if (window.location.pathname === '/about') {
+    } else if (window.location.pathname === '/about') {
       setTitle('정보')
+    } else {
+      setTitle('404')
     }
   }, [])
 

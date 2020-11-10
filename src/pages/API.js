@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button'
 
 import apiStyle from '../styles/API.style'
 
-const FlatButtons = (props) => {
+const API = (props) => {
   const { classes } = props
   return (
     <div>
@@ -40,8 +40,8 @@ const FlatButtons = (props) => {
   )
 }
 
-FlatButtons.propTypes = {
+API.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(apiStyle)(FlatButtons)
+export default withStyles(apiStyle)(API)
