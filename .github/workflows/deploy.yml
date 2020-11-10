@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --prod --pure-lockfile
       - name: Build
-        run: yarn run deploy
+        run: yarn run build
         env:
           NODE_ENV: production
           CI: false
