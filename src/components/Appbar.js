@@ -1,6 +1,6 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import clsx from 'clsx'
-import { Router, Route, Link } from 'react-router-dom'
+import { Route, Link, BrowserRouter, Switch } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 
 import { withStyles } from '@material-ui/core/styles'
@@ -30,6 +30,7 @@ import {
   WbSunny
 } from '@material-ui/icons'
 import { Divider, Snackbar, Tooltip } from '@material-ui/core'
+import PageNotFound from '../pages/PageNotFound'
 
 const history = createBrowserHistory()
 
@@ -136,7 +137,7 @@ const HeaderDrawer = withStyles(headerStyle)(
     onItemClick,
     onItemClickWithoutUpdate
   }) => (
-    <Router history={history}>
+    <BrowserRouter history={history}>
       <Drawer
         variant={variant}
         open={open}
@@ -187,11 +188,14 @@ const HeaderDrawer = withStyles(headerStyle)(
         </List>
       </Drawer>
       <main className={classes.content}>
-        <Route exact path='/' component={Home} />
-        <Route path='/api' component={API} />
-        <Route path='/about' component={About} />
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route path='/api' component={API} />
+          <Route path='/about' component={About} />
+          <Route component={PageNotFound} />
+        </Switch>
       </main>
-    </Router>
+    </BrowserRouter>
   )
 )
 
