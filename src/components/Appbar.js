@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import clsx from 'clsx'
 import { Router, Route, Link } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
@@ -14,6 +14,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
+import Alert from '@material-ui/lab/Alert'
 
 import Home from '../pages/Home'
 import API from '../pages/API'
@@ -24,38 +25,117 @@ import {
   BookOutlined,
   CloseOutlined,
   HomeOutlined,
-  InfoOutlined
+  InfoOutlined,
+  NightsStay,
+  WbSunny
 } from '@material-ui/icons'
-import { Divider, Tooltip } from '@material-ui/core'
+import { Divider, Snackbar, Tooltip } from '@material-ui/core'
 
 const history = createBrowserHistory()
 
 const HeaderToolbar = withStyles(headerStyle)(
-  ({ classes, title, onMenuClick }) => (
-    <Fragment>
-      <AppBar className={classes.aboveDrawer}>
-        <Toolbar>
-          <Tooltip title='메뉴' arrow>
-            <IconButton
-              className={classes.menuButton}
-              color='inherit'
-              aria-label='Menu'
-              onClick={onMenuClick}>
-              <MenuIcon />
-            </IconButton>
-          </Tooltip>
-          <Typography variant='h6' color='inherit' className={classes.flex}>
-            {title}
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <div className={classes.toolbarMargin} />
-    </Fragment>
-  )
+  ({ classes, title, onMenuClick }) => {
+    const [updateTime, setUpdateTime] = useState(
+      `${new Date().toLocaleTimeString('ko-KR', {
+        hour12: true,
+        hour: 'numeric',
+        minute: 'numeric'
+      })}`
+    )
+    const [darkModeButtonClicked, setDarkModeButtonClicked] = useState(false)
+
+    const handleDarkModeSnackbarClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return
+      }
+      setDarkModeButtonClicked(false)
+    }
+
+    const refreshRate = 60000 // 1분마다 업데이트
+
+    const updateData = async () => {
+      setUpdateTime(
+        `${new Date().toLocaleTimeString('ko-KR', {
+          hour12: true,
+          hour: 'numeric',
+          minute: 'numeric'
+        })}`
+      )
+    }
+
+    const toggleDarkMode = () => {
+      setDarkModeButtonClicked(true)
+      if (localStorage.getItem('darkmode') === 'true') {
+        localStorage.setItem('darkmode', false)
+      } else {
+        localStorage.setItem('darkmode', true)
+      }
+      window.location.reload()
+    }
+
+    useEffect(() => {
+      const interval = setInterval(updateData, refreshRate)
+      return () => clearInterval(interval)
+    }, [refreshRate])
+
+    return (
+      <Fragment>
+        <AppBar className={classes.aboveDrawer}>
+          <Toolbar>
+            <Tooltip title='메뉴' arrow>
+              <IconButton
+                className={classes.menuButton}
+                color='inherit'
+                aria-label='Menu'
+                onClick={onMenuClick}>
+                <MenuIcon />
+              </IconButton>
+            </Tooltip>
+            <Typography variant='h6' color='inherit' className={classes.flex}>
+              {title}
+            </Typography>
+            <Typography variant='subtitle2' color='inherit'>
+              {`${updateTime}`}에 업데이트 됨
+            </Typography>
+            <div>
+              <IconButton
+                aria-label='account of current user'
+                aria-controls='menu-appbar'
+                aria-haspopup='true'
+                onClick={toggleDarkMode}
+                color='inherit'>
+                {localStorage.getItem('darkmode') === 'true' ? (
+                  <WbSunny />
+                ) : (
+                  <NightsStay />
+                )}
+              </IconButton>
+            </div>
+          </Toolbar>
+        </AppBar>
+        <div className={classes.toolbarMargin} />
+        <Snackbar
+          open={darkModeButtonClicked}
+          autoHideDuration={6000}
+          onClose={handleDarkModeSnackbarClose}>
+          <Alert onClose={handleDarkModeSnackbarClose} severity='success'>
+            테마 변경 및 적용중...
+          </Alert>
+        </Snackbar>
+      </Fragment>
+    )
+  }
 )
 
 const HeaderDrawer = withStyles(headerStyle)(
-  ({ classes, variant, open, onClose, onItemClick }) => (
+  ({
+    classes,
+    variant,
+    open,
+    onClose,
+    onItemClick,
+    onItemClickWithoutUpdate
+  }) => (
     <Router history={history}>
       <Drawer
         variant={variant}
@@ -98,7 +178,7 @@ const HeaderDrawer = withStyles(headerStyle)(
             <ListItemText>정보</ListItemText>
           </ListItem>
           <Divider />
-          <ListItem button onClick={onItemClick('')}>
+          <ListItem button onClick={onItemClickWithoutUpdate()}>
             <ListItemIcon>
               <CloseOutlined />
             </ListItemIcon>
@@ -117,7 +197,19 @@ const HeaderDrawer = withStyles(headerStyle)(
 
 const HeaderAppBarInteraction = ({ classes, variant }) => {
   const [drawer, setDrawer] = useState(false)
-  const [title, setTitle] = useState('홈')
+  const [title, setTitle] = useState()
+
+  useEffect(() => {
+    if (window.location.pathname === '/') {
+      setTitle('홈')
+    }
+    if (window.location.pathname === '/api') {
+      setTitle('API 문서')
+    }
+    if (window.location.pathname === '/about') {
+      setTitle('정보')
+    }
+  }, [])
 
   const toggleDrawer = () => {
     setDrawer(!drawer)
@@ -129,6 +221,11 @@ const HeaderAppBarInteraction = ({ classes, variant }) => {
     setDrawer(!drawer)
   }
 
+  const onItemClickWithoutUpdate = () => () => {
+    setDrawer(variant === 'temporary' ? false : drawer)
+    setDrawer(!drawer)
+  }
+
   return (
     <div className={classes.root}>
       <HeaderToolbar title={title} onMenuClick={toggleDrawer} />
@@ -136,6 +233,7 @@ const HeaderAppBarInteraction = ({ classes, variant }) => {
         open={drawer}
         onClose={toggleDrawer}
         onItemClick={onItemClick}
+        onItemClickWithoutUpdate={onItemClickWithoutUpdate}
         variant={variant}
       />
     </div>
