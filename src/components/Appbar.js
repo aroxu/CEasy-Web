@@ -54,7 +54,7 @@ const HeaderToolbar = withStyles(headerStyle)(
 
     const refreshRate = 60000 // 1분마다 업데이트
 
-    const updateData = async () => {
+    const updateDataTime = async () => {
       setUpdateTime(
         `${new Date().toLocaleTimeString('ko-KR', {
           hour12: true,
@@ -75,7 +75,7 @@ const HeaderToolbar = withStyles(headerStyle)(
     }
 
     useEffect(() => {
-      const interval = setInterval(updateData, refreshRate)
+      const interval = setInterval(updateDataTime, refreshRate)
       return () => clearInterval(interval)
     }, [refreshRate])
 

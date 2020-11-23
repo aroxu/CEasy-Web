@@ -1,6 +1,5 @@
 import React from 'react'
 
-import './App.css'
 import Appbar from './components/Appbar.js'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core'
