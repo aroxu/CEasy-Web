@@ -23,7 +23,7 @@ const Home = ({ classes }) => {
 
   const getData = async () => {
     try {
-      const res = await apis.GetData(10)
+      const res = await apis.GetData()
       setData(res.data.data)
     } catch (e) {
       console.log(e)
