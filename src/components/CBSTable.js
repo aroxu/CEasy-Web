@@ -7,7 +7,7 @@ import {
   TableBody
 } from '@material-ui/core'
 import { replaceText } from '../utils/funcs'
-import { useMediaQuery } from '../utils/hooks'
+import { useMediaQuery } from '../hooks/mediaQuery'
 
 const CBSTable = ({ classes, data }) => {
   const isEnoughWidth = useMediaQuery('(min-width: 500px)')

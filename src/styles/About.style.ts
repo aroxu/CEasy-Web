@@ -1,4 +1,6 @@
-const aboutStyle = (theme) => ({
+import { Theme } from "@material-ui/core"
+
+const aboutStyle = (theme: Theme) => ({
   button: {
     margin: theme.spacing(1)
   },

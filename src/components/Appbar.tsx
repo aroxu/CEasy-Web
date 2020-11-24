@@ -1,6 +1,6 @@
-import React, { useState, Fragment, useEffect } from 'react'
+import React, { useState, Fragment, useEffect, FC } from 'react'
 import clsx from 'clsx'
-import { Route, Link, BrowserRouter, Switch } from 'react-router-dom'
+import { Route, Link, BrowserRouter, Switch, useLocation } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 
 import { withStyles } from '@material-ui/core/styles'
@@ -19,6 +19,7 @@ import Home from '../pages/Home'
 import API from '../pages/API'
 import About from '../pages/About'
 
+
 import headerStyle from '../styles/header.style'
 import {
   BookOutlined,
@@ -33,11 +34,14 @@ import { Divider, Snackbar, Tooltip } from '@material-ui/core'
 import PageNotFound from '../pages/PageNotFound'
 import Alert from './Alert'
 import History from '../pages/History'
+import {useTheme} from '../hooks/theme'
+
 
 const history = createBrowserHistory()
 
+// @ts-ignore
 const HeaderToolbar = withStyles(headerStyle)(
-  ({ classes, title, onMenuClick }) => {
+  ({ classes, title, onMenuClick }: any) => {
     const [updateTime, setUpdateTime] = useState(
       `${new Date().toLocaleTimeString('ko-KR', {
         hour12: true,
@@ -46,8 +50,9 @@ const HeaderToolbar = withStyles(headerStyle)(
       })}`
     )
     const [darkModeButtonClicked, setDarkModeButtonClicked] = useState(false)
+    const [theme, toggleTheme] = useTheme()
 
-    const handleDarkModeSnackbarClose = (event, reason) => {
+    const handleDarkModeSnackbarClose = (event:any, reason:string) => {
       if (reason === 'clickaway') {
         return
       }
@@ -64,16 +69,6 @@ const HeaderToolbar = withStyles(headerStyle)(
           minute: 'numeric'
         })}`
       )
-    }
-
-    const toggleDarkMode = () => {
-      setDarkModeButtonClicked(true)
-      if (localStorage.getItem('darkmode') === 'true') {
-        localStorage.setItem('darkmode', false)
-      } else {
-        localStorage.setItem('darkmode', true)
-      }
-      window.location.reload()
     }
 
     useEffect(() => {
@@ -101,13 +96,13 @@ const HeaderToolbar = withStyles(headerStyle)(
               {`${updateTime}`}에 업데이트 됨
             </Typography>
             <div>
-              <IconButton
-                aria-label='account of current user'
-                aria-controls='menu-appbar'
-                aria-haspopup='true'
-                onClick={toggleDarkMode}
+            <IconButton
+                aria-label='다크모드 전환'
+                aria-controls='darkmode'
+                aria-haspopup={true}
+                onClick={toggleTheme}
                 color='inherit'>
-                {localStorage.getItem('darkmode') === 'true' ? (
+                {theme === 'light' ? (
                   <WbSunny />
                 ) : (
                   <NightsStay />
@@ -130,6 +125,24 @@ const HeaderToolbar = withStyles(headerStyle)(
   }
 )
 
+const DrawerItem: {name: string, link: string, icon: any}[] = [{
+    name: '기록',
+    link: '/history',
+    icon: <HistoryOutlined />
+},
+{
+  name: 'API 문서',
+  link: '/api',
+  icon: <BookOutlined />
+},
+{
+  name: '정보',
+  link: '/about',
+  icon: <InfoOutlined />
+}
+]
+
+// @ts-ignore
 const HeaderDrawer = withStyles(headerStyle)(
   ({
     classes,
@@ -138,7 +151,7 @@ const HeaderDrawer = withStyles(headerStyle)(
     onClose,
     onItemClick,
     onItemClickWithoutUpdate
-  }) => (
+  }: any) => (
     <BrowserRouter history={history}>
       <Drawer
         variant={variant}
@@ -159,39 +172,21 @@ const HeaderDrawer = withStyles(headerStyle)(
             </ListItemIcon>
             <ListItemText>홈</ListItemText>
           </ListItem>
-          <ListItem
-            button
-            component={Link}
-            to='/history'
-            onClick={onItemClick('기록')}>
-            <ListItemIcon>
-              <HistoryOutlined />
-            </ListItemIcon>
-            <ListItemText>기록</ListItemText>
-          </ListItem>
-          <Divider />
-          <ListItem
-            button
-            component={Link}
-            to='/api'
-            onClick={onItemClick('API 문서')}>
-            <ListItemIcon>
-              <BookOutlined />
-            </ListItemIcon>
-            <ListItemText>API 문서</ListItemText>
-          </ListItem>
-          <Divider />
-          <ListItem
-            button
-            component={Link}
-            to='/about'
-            onClick={onItemClick('정보')}>
-            <ListItemIcon>
-              <InfoOutlined />
-            </ListItemIcon>
-            <ListItemText>정보</ListItemText>
-          </ListItem>
-          <Divider />
+          {DrawerItem.map((item) => (
+            <>
+              <ListItem
+               button
+               component={Link}
+               to={item.link}
+               onClick={onItemClick(item.name)}>
+               <ListItemIcon>
+                 {item.icon}
+               </ListItemIcon>
+               <ListItemText>정보</ListItemText>
+             </ListItem>
+             <Divider />
+             </>
+          ))}
           <ListItem button onClick={onItemClickWithoutUpdate()}>
             <ListItemIcon>
               <CloseOutlined />
@@ -213,29 +208,37 @@ const HeaderDrawer = withStyles(headerStyle)(
   )
 )
 
-const HeaderAppBarInteraction = ({ classes, variant }) => {
-  const [drawer, setDrawer] = useState(false)
-  const [title, setTitle] = useState()
+type HeaderAppBarInteractionProps = {
+  classes: any,
+  variant?: string
+}
+
+const HeaderAppBarInteraction: FC<HeaderAppBarInteractionProps> = ({ classes, variant }) => {
+  const [drawer, setDrawer] = useState<boolean>(false)
+  const [title, setTitle] = useState<string>('')
+
+  const location = useLocation()
 
   useEffect(() => {
-    if (window.location.pathname === '/') {
+    const {pathname} = location
+    if (pathname === '/') {
       setTitle('홈')
-    } else if (window.location.pathname === '/api') {
+    } else if (pathname === '/api') {
       setTitle('API 문서')
-    } else if (window.location.pathname === '/history') {
+    } else if (pathname === '/history') {
       setTitle('기록')
-    } else if (window.location.pathname === '/about') {
+    } else if (pathname === '/about') {
       setTitle('정보')
     } else {
       setTitle('404')
     }
-  }, [])
+  }, [location])
 
   const toggleDrawer = () => {
     setDrawer(!drawer)
   }
 
-  const onItemClick = (title) => () => {
+  const onItemClick = (title:string) => () => {
     setTitle(title)
     setDrawer(variant === 'temporary' ? false : drawer)
     setDrawer(!drawer)
@@ -260,4 +263,5 @@ const HeaderAppBarInteraction = ({ classes, variant }) => {
   )
 }
 
+// @ts-ignore
 export default withStyles(headerStyle)(HeaderAppBarInteraction)
