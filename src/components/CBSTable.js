@@ -17,15 +17,15 @@ const CBSTable = ({ classes, data }) => {
         <TableRow>
           <TableCell
             className={isEnoughWidth ? classes.date : classes.date_hide}>
-            발신 시각
+            ⏱ 발신 시각
           </TableCell>
           <TableCell
             className={isEnoughWidth ? classes.content : classes.content_small}>
-            내용
+            ✉️ 내용
           </TableCell>
           <TableCell
             className={isEnoughWidth ? classes.area : classes.area_small}>
-            발신지
+            📍 발신지
           </TableCell>
         </TableRow>
       </TableHead>

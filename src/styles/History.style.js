@@ -24,10 +24,10 @@ const historyStyle = (theme) => ({
     display: 'none'
   },
   content_small: {
-    width: '75%'
+    width: '70%'
   },
   area_small: {
-    width: '25%'
+    width: '30%'
   }
 })
 
