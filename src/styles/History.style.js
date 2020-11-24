@@ -12,10 +12,10 @@ const historyStyle = (theme) => ({
     width: '100%'
   },
   date: {
-    width: '17%'
+    width: '11%'
   },
   content: {
-    width: '78%'
+    width: '79%'
   },
   area: {
     width: '10%'
