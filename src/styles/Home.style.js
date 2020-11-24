@@ -1,6 +1,6 @@
 const homeStyle = (theme) => ({
-  button: {
-    margin: theme.spacing(1)
+  contentBase: {
+    margin: '10px'
   },
   input: {
     display: 'none'

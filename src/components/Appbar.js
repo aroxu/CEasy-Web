@@ -23,6 +23,7 @@ import headerStyle from '../styles/header.style'
 import {
   BookOutlined,
   CloseOutlined,
+  HistoryOutlined,
   HomeOutlined,
   InfoOutlined,
   NightsStay,
@@ -31,6 +32,7 @@ import {
 import { Divider, Snackbar, Tooltip } from '@material-ui/core'
 import PageNotFound from '../pages/PageNotFound'
 import Alert from './Alert'
+import History from '../pages/History'
 
 const history = createBrowserHistory()
 
@@ -160,6 +162,17 @@ const HeaderDrawer = withStyles(headerStyle)(
           <ListItem
             button
             component={Link}
+            to='/history'
+            onClick={onItemClick('기록')}>
+            <ListItemIcon>
+              <HistoryOutlined />
+            </ListItemIcon>
+            <ListItemText>기록</ListItemText>
+          </ListItem>
+          <Divider />
+          <ListItem
+            button
+            component={Link}
             to='/api'
             onClick={onItemClick('API 문서')}>
             <ListItemIcon>
@@ -192,6 +205,7 @@ const HeaderDrawer = withStyles(headerStyle)(
           <Route exact path='/' component={Home} />
           <Route path='/api' component={API} />
           <Route path='/about' component={About} />
+          <Route path='/history' component={History} />
           <Route component={PageNotFound} />
         </Switch>
       </main>
@@ -208,6 +222,8 @@ const HeaderAppBarInteraction = ({ classes, variant }) => {
       setTitle('홈')
     } else if (window.location.pathname === '/api') {
       setTitle('API 문서')
+    } else if (window.location.pathname === '/history') {
+      setTitle('기록')
     } else if (window.location.pathname === '/about') {
       setTitle('정보')
     } else {
