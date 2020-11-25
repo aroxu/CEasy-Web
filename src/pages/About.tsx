@@ -6,17 +6,15 @@ import Icon from '@material-ui/core/Icon'
 import DeleteIcon from '@material-ui/icons/Delete'
 import Button from '@material-ui/core/Button'
 
+import aboutStyle from '../styles/About.style'
 import MuiAlert from '@material-ui/lab/Alert'
 
-import apiStyle from '../styles/API.style'
-
-const API = (props) => {
-  const { classes } = props
+const About = ({classes}:any) => {
   return (
     <div>
       <MuiAlert elevation={6} variant='filled' severity='info'>
         이 사이트는 아직 개발중입니다.
-      </MuiAlert>
+      </MuiAlert>{' '}
       <Button
         variant='contained'
         color='primary'
@@ -38,13 +36,13 @@ const API = (props) => {
         className={classes.button}>
         <DeleteIcon />
       </Button>
-      API 페이지 테스트
+      정보 페이지 테스트
     </div>
   )
 }
 
-API.propTypes = {
+About.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(apiStyle)(API)
+export default withStyles(aboutStyle)(About)

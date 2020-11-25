@@ -7,7 +7,7 @@ import { Button, Card, CardContent, Grid, Typography } from '@material-ui/core'
 import MuiAlert from '@material-ui/lab/Alert'
 import { Home, Mail } from '@material-ui/icons'
 
-const PageNotFound = withStyles(pageNotFoundStyle)(({ classes }) => {
+const PageNotFound = withStyles(pageNotFoundStyle)(({ classes }: any) => {
   const goToHome = () => {
     document.location.href = '/'
   }

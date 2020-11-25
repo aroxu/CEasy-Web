@@ -7,8 +7,9 @@ import MuiAlert from '@material-ui/lab/Alert'
 
 import CBSTable from '../components/CBSTable'
 import historyStyle from '../styles/History.style'
+import { defaultICbsDataRequest } from '../interfaces/default'
 
-const History = ({ classes }) => {
+const History = ({classes}:any) => {
   const [data, setData] = useState([])
   const refreshRate = 60000 // 1분마다 업데이트
 
@@ -23,13 +24,12 @@ const History = ({ classes }) => {
 
   const getData = async () => {
     try {
-      const res = await apis.GetData()
+      const res = await apis.GetData(defaultICbsDataRequest)
       setData(res.data.data)
     } catch (e) {
       console.log(e)
     }
   }
-
   return (
     <>
       <MuiAlert elevation={6} variant='filled' severity='info'>

@@ -9,7 +9,7 @@ import {
 import { replaceText } from '../utils/funcs'
 import { useMediaQuery } from '../hooks/mediaQuery'
 
-const CBSTable = ({ classes, data }) => {
+const CBSTable = ({ classes, data }: any) => {
   const isEnoughWidth = useMediaQuery('(min-width: 500px)')
   return (
     <Table className={classes.table} size='small' aria-label='simple table'>
@@ -30,7 +30,7 @@ const CBSTable = ({ classes, data }) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {data.map((row) => (
+        {data.map((row: any) => (
           <TableRow key={row.ID}>
             <TableCell
               className={

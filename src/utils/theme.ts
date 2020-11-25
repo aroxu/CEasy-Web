@@ -1,11 +1,23 @@
 export const getDarkModeStatus = () => {
   if (localStorage.getItem('darkmode') === null) {
-    localStorage.setItem('darkmode', 'false')
+    if (
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    ) {
+      localStorage.setItem('darkmode', 'true')
+    } else if (
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: light)').matches
+    ) {
+      localStorage.setItem('darkmode', 'false')
+    } else {
+      localStorage.setItem('darkmode', 'false')
+    }
   }
   return localStorage.getItem('darkmode') === 'true' ? true : false
 }
+
 export const toggleDarkModeStatus = () => {
-  console.log('called')
   const darkModeEnabled = localStorage.getItem('darkmode')
   if (darkModeEnabled === 'true') {
     localStorage.setItem('darkmode', 'false')
