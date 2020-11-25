@@ -2,14 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 
-import Alert from '../components/Alert'
+import MuiAlert from '@material-ui/lab/Alert'
 
 import homeStyle from '../styles/Home.style'
 
 const Home = ({ classes }) => {
   return (
     <>
-      <Alert severity='info'>이 사이트는 아직 개발중입니다.</Alert>
+      <MuiAlert elevation={6} variant='filled' severity='info'>
+        이 사이트는 아직 개발중입니다.
+      </MuiAlert>{' '}
       <div className={classes.contentBase}>Nothing here.</div>
     </>
   )

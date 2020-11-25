@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 
 import pageNotFoundStyle from '../styles/PageNotFound.style'
 import { Button, Card, CardContent, Grid, Typography } from '@material-ui/core'
-import Alert from '../components/Alert'
+import MuiAlert from '@material-ui/lab/Alert'
 import { Home, Mail } from '@material-ui/icons'
 
 const PageNotFound = withStyles(pageNotFoundStyle)(({ classes }) => {
@@ -18,7 +18,9 @@ const PageNotFound = withStyles(pageNotFoundStyle)(({ classes }) => {
 
   return (
     <>
-      <Alert severity='error'>페이지를 찾을 수 없습니다.</Alert>
+      <MuiAlert elevation={6} variant='filled' severity='error'>
+        페이지를 찾을 수 없습니다.
+      </MuiAlert>
       <Grid
         className={classes.root}
         spacing={0}

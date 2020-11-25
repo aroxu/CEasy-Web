@@ -7,13 +7,15 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import Button from '@material-ui/core/Button'
 
 import aboutStyle from '../styles/About.style'
-import Alert from '../components/Alert'
+import MuiAlert from '@material-ui/lab/Alert'
 
 const About = (props) => {
   const { classes } = props
   return (
     <div>
-      <Alert severity='info'>이 사이트는 아직 개발중입니다.</Alert>
+      <MuiAlert elevation={6} variant='filled' severity='info'>
+        이 사이트는 아직 개발중입니다.
+      </MuiAlert>{' '}
       <Button
         variant='contained'
         color='primary'

@@ -1,6 +1,6 @@
-import { Theme } from "@material-ui/core"
+import { createStyles, Theme } from "@material-ui/core"
 
-const historyStyle = (theme: Theme) => ({
+const historyStyle = (theme: Theme) => createStyles({
   contentBase: {
     margin: '10px'
   },

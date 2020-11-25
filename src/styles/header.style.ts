@@ -1,8 +1,8 @@
-import { Theme } from "@material-ui/core"
+import { createStyles, Theme } from "@material-ui/core"
 
 const drawerWidth = 240
 
-const headerStyle = (theme: Theme) => ({
+const headerStyle = (theme: Theme) => createStyles({
   root: {
     flexGrow: 1
   },
