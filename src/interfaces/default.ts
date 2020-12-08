@@ -5,5 +5,5 @@ export const defaultICbsDataRequest = {
   start: '',
   end: '',
   includes: '',
-  offset: '',
+  offset: ''
 }

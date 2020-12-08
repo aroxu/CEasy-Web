@@ -1,4 +1,4 @@
-const replaceText = (text:string) =>
+const replaceText = (text: string) =>
   text
     .replace(/&lt;/gi, '<')
     .replace(/&gt;/gi, '>')

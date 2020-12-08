@@ -10,9 +10,7 @@ interface ICbsDataRequest {
   offset?: string
 }
 
-export const GetData = (
-  params: ICbsDataRequest
-) =>
+export const GetData = (params: ICbsDataRequest) =>
   Axios.get('https://alt.b1ackange1.me/api/cbs/v0/', {
     params
   })

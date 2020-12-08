@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import React, { FC } from 'react'
 
 import Appbar from './components/Appbar'
 import CssBaseline from '@material-ui/core/CssBaseline'

@@ -10,7 +10,7 @@ import MuiAlert from '@material-ui/lab/Alert'
 
 import apiStyle from '../styles/API.style'
 
-const API = ({classes}:any) => {
+const API = ({ classes }: any) => {
   return (
     <div>
       <MuiAlert elevation={6} variant='filled' severity='info'>

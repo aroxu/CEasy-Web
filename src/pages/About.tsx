@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button'
 import aboutStyle from '../styles/About.style'
 import MuiAlert from '@material-ui/lab/Alert'
 
-const About = ({classes}:any) => {
+const About = ({ classes }: any) => {
   return (
     <div>
       <MuiAlert elevation={6} variant='filled' severity='info'>

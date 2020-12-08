@@ -9,7 +9,7 @@ import CBSTable from '../components/CBSTable'
 import historyStyle from '../styles/History.style'
 import { defaultICbsDataRequest } from '../interfaces/default'
 
-const History = ({classes}:any) => {
+const History = ({ classes }: any) => {
   const [data, setData] = useState([])
   const refreshRate = 60000 // 1분마다 업데이트
 

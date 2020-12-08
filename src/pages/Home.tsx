@@ -6,7 +6,7 @@ import MuiAlert from '@material-ui/lab/Alert'
 
 import homeStyle from '../styles/Home.style'
 
-const Home = ({ classes }:any) => {
+const Home = ({ classes }: any) => {
   return (
     <>
       <MuiAlert elevation={6} variant='filled' severity='info'>

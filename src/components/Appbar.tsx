@@ -83,7 +83,9 @@ const HeaderToolbar = withStyles(headerStyle)(
             <Typography variant='subtitle2' color='inherit'>
               {`${updateTime}`}에 업데이트 됨
             </Typography>
-            <Tooltip title={getDarkModeStatus() ? '다크모드 끄기' : '다크모드 켜기'} arrow>
+            <Tooltip
+              title={getDarkModeStatus() ? '다크모드 끄기' : '다크모드 켜기'}
+              arrow>
               <IconButton
                 aria-label='다크모드 전환'
                 aria-controls='darkmode'
@@ -99,13 +101,8 @@ const HeaderToolbar = withStyles(headerStyle)(
           </Toolbar>
         </AppBar>
         <div className={classes.toolbarMargin} />
-        <Snackbar
-          open={darkModeButtonClicked}
-          autoHideDuration={6000}>
-          <MuiAlert
-            elevation={6}
-            variant='filled'
-            severity='success'>
+        <Snackbar open={darkModeButtonClicked} autoHideDuration={6000}>
+          <MuiAlert elevation={6} variant='filled' severity='success'>
             테마 변경 및 적용중...
           </MuiAlert>
         </Snackbar>
