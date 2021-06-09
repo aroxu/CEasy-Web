@@ -1,6 +1,6 @@
-import { createStyles, Theme } from '@material-ui/core'
+import { createStyles } from '@material-ui/core'
 
-const pageNotFoundStyle = (theme: Theme) =>
+const pageNotFoundStyle = () =>
   createStyles({
     root: {
       minWidth: '100%',

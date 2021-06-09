@@ -1,6 +1,6 @@
-import { createStyles, Theme } from '@material-ui/core'
+import { createStyles } from '@material-ui/core'
 
-const homeStyle = (theme: Theme) =>
+const homeStyle = () =>
   createStyles({
     contentBase: {
       margin: '10px'

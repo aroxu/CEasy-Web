@@ -11,6 +11,6 @@ interface ICbsDataRequest {
 }
 
 export const GetData = (params: ICbsDataRequest) =>
-  Axios.get('https://alt.b1ackange1.me/api/cbs/v0/', {
+  Axios.get('https://alt.aroxu.me/api/cbs/v0/', {
     params
   })
