@@ -31,5 +31,5 @@ jobs:
         with:
           cname: ceasy.aroxu.me
           publish_dir: ./build
-          github_token: ${{secrets.GH_PAT}}
+          github_token: ${{secrets.GITHUB_TOKEN}}
           publish_branch: gh-pages
