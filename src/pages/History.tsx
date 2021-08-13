@@ -5,7 +5,7 @@ import * as apis from '../apis/data'
 
 import MuiAlert from '@material-ui/lab/Alert'
 
-import CBSTable from '../components/CBSTable'
+import PSAMessageTable from '../components/CBSTable'
 import historyStyle from '../styles/History.style'
 import { defaultICbsDataRequest } from '../interfaces/default'
 
@@ -36,7 +36,7 @@ const History = ({ classes }: any) => {
         이 사이트는 아직 개발중입니다.
       </MuiAlert>{' '}
       <div className={classes.contentBase}>
-        <CBSTable classes={classes} data={data} />
+        <PSAMessageTable classes={classes} data={data} />
       </div>
     </>
   )
